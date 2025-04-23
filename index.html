@@ -352,15 +352,15 @@
         .whatsapp-button i {
             vertical-align: middle;
         }
-        /* Responsif untuk Modal Detail Produk */
+       /* Responsif untuk Modal Detail Produk */
 @media (max-width: 600px) {
     .modal-content {
-        margin-top: 30%; /* Sesuaikan jarak atas agar tidak terlalu di tengah */
-        width: 95%; /* Lebar modal hampir memenuhi layar */
+        margin-top: 30%;
+        width: 95%;
     }
-    .modal-image {
-        max-height: 300px; /* Batasi tinggi gambar */
-        width: auto; /* Biarkan lebar menyesuaikan aspek rasio */
+    .modal-content img#modal-image { /* Targetkan langsung img dengan id modal-image di dalam modal-content */
+        max-height: 250px;
+        width: auto;
     }
 }
 
