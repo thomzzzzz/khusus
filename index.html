@@ -810,11 +810,11 @@
     const carouselContainer = document.querySelector('.promo-carousel-container');
     let touchStartX = null;
 
-    // Fungsi untuk mendapatkan keranjang dari localStorage (tetap ada)
+    // Fungsi untuk mendapatkan keranjang dari localStorage
     function getCart() {
         return JSON.parse(localStorage.getItem('keranjang') || '[]');
     }
-    // Fungsi untuk menyimpan keranjang ke localStorage (tetap ada)
+    // Fungsi untuk menyimpan keranjang ke localStorage
     function saveCart(cart) {
         localStorage.setItem('keranjang', JSON.stringify(cart));
         updateCartCount();
@@ -822,12 +822,8 @@
     // Pop-up Selamat Datang
     const welcomePopup = document.getElementById('welcomePopup');
     const closeWelcomePopup = document.getElementById('closeWelcomePopup');
-    // const hasVisited = localStorage.getItem('hasVisited');
 
-    // if (!hasVisited) {
     welcomePopup.style.display = 'flex';
-    // localStorage.setItem('hasVisited', 'true');
-    // }
 
     closeWelcomePopup.addEventListener('click', () => {
         welcomePopup.style.display = 'none';
@@ -851,7 +847,7 @@
     });
 
 
-    // Fungsi untuk memperbarui tampilan jumlah item di keranjang (tetap ada)
+    // Fungsi untuk memperbarui tampilan jumlah item di keranjang
     function updateCartCount() {
         const cart = getCart();
         const totalItems = cart.reduce((sum, item) => sum + item.jumlah, 0);
@@ -861,10 +857,10 @@
         cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
     }
 
-    // Inisialisasi jumlah item keranjang saat halaman dimuat (tetap ada)
+    // Inisialisasi jumlah item keranjang saat halaman dimuat
     updateCartCount();
 
-    // Fungsi untuk menampilkan detail produk (MODIFIKASI DI SINI untuk menampilkan paragraf)
+    // Fungsi untuk menampilkan detail produk (PERUBAHAN DI SINI untuk menampilkan baris baru)
     function showProductDetails(product) {
         console.log("Fungsi showProductDetails dipanggil dengan produk:", product); // Tambahan debugging
 
@@ -874,25 +870,9 @@
         const priceElement = product.querySelector('.product-price');
         modalPrice.innerHTML = priceElement.innerHTML; // Ambil HTML dari elemen harga (termasuk coretan)
 
-        // Bersihkan konten modal deskripsi sebelumnya
-        modalDescription.innerHTML = '';
-        console.log("Konten modalDescription dibersihkan."); // Tambahan debugging
-
-        // Ambil teks deskripsi
-        const descriptionText = product.dataset.description;
-        console.log("Teks deskripsi dari dataset:", descriptionText); // Tambahan debugging
-
-        // Pecah menjadi paragraf berdasarkan satu atau lebih newline
-        const paragraphs = descriptionText.split(/\n\n+/);
-        console.log("Paragraf setelah pemisahan:", paragraphs); // Tambahan debugging
-
-        // Buat elemen <p> untuk setiap paragraf dan tambahkan ke modal
-        paragraphs.forEach(paragraphText => {
-            const p = document.createElement('p');
-            p.textContent = paragraphText.trim(); // Trim untuk menghilangkan spasi berlebih
-            modalDescription.appendChild(p);
-            console.log("Paragraf ditambahkan ke modal:", p); // Tambahan debugging
-        });
+        // Ganti semua karakter newline dengan <br> dan set innerHTML
+        modalDescription.innerHTML = product.dataset.description.replace(/\n/g, '<br>');
+        console.log("Deskripsi modal setelah mengganti \\n dengan <br>:", modalDescription.innerHTML); // Tambahan debugging
 
         modalAddToCartButton.dataset.id = product.dataset.id;
         modalAddToCartButton.dataset.name = product.dataset.name;
@@ -902,12 +882,12 @@
         console.log("Modal ditampilkan."); // Tambahan debugging
     }
 
-    // Fungsi untuk menyembunyikan detail produk (tetap ada)
+    // Fungsi untuk menyembunyikan detail produk
     function hideProductDetails() {
         productModal.style.display = "none";
     }
 
-    // Fungsi untuk menambahkan ke keranjang (tetap ada)
+    // Fungsi untuk menambahkan ke keranjang
     function tambahKeKeranjang(productId, namaProduk, hargaProduk, gambarProduk) {
         let cart = getCart();
         const existingItem = cart.find(item => item.id === productId);
@@ -932,7 +912,7 @@
         }, 300);
     }
 
-    // Fungsi untuk menambahkan badge (tetap ada)
+    // Fungsi untuk menambahkan badge
     function addBadges(productCard) {
         if (productCard.dataset.bestSeller === 'true') {
             const badge = document.createElement('span');
@@ -949,7 +929,7 @@
         }
     }
 
-    // Fungsi untuk memperbarui tampilan daftar produk (PERUBAHAN DI SINI untuk menampilkan harga diskon)
+    // Fungsi untuk memperbarui tampilan daftar produk
     function updateProductList(products) {
         productList.innerHTML = '';
         products.forEach((productData, index) => {
@@ -995,7 +975,7 @@
     // Panggil updateProductList di awal untuk menampilkan produk
     updateProductList(allProducts);
 
-    // Delegasi event listener untuk menampilkan detail produk (PERUBAHAN DI SINI)
+    // Delegasi event listener untuk menampilkan detail produk
     productList.addEventListener('click', function(event) {
         const target = event.target.closest('.product-card');
         if (target) {
@@ -1016,7 +996,7 @@
         }
     });
 
-    // Delegasi event listener untuk tombol tambah ke keranjang (tetap ada)
+    // Delegasi event listener untuk tombol tambah ke keranjang
     productList.addEventListener('click', function(event) {
         if (event.target.classList.contains('add-to-cart-btn')) {
             const button = event.target;
