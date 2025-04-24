@@ -866,6 +866,8 @@
 
     // Fungsi untuk menampilkan detail produk (MODIFIKASI DI SINI untuk menampilkan paragraf)
     function showProductDetails(product) {
+        console.log("Fungsi showProductDetails dipanggil dengan produk:", product); // Tambahan debugging
+
         modalImage.src = product.dataset.image;
         modalImage.alt = product.dataset.name;
         modalTitle.textContent = product.dataset.name;
@@ -874,16 +876,22 @@
 
         // Bersihkan konten modal deskripsi sebelumnya
         modalDescription.innerHTML = '';
+        console.log("Konten modalDescription dibersihkan."); // Tambahan debugging
 
-        // Ambil teks deskripsi dan pecah menjadi paragraf berdasarkan dua atau lebih newline
+        // Ambil teks deskripsi
         const descriptionText = product.dataset.description;
-        const paragraphs = descriptionText.split(/\n\n+/); // Memecah berdasarkan satu atau lebih baris kosong
+        console.log("Teks deskripsi dari dataset:", descriptionText); // Tambahan debugging
+
+        // Pecah menjadi paragraf berdasarkan satu atau lebih newline
+        const paragraphs = descriptionText.split(/\n\n+/);
+        console.log("Paragraf setelah pemisahan:", paragraphs); // Tambahan debugging
 
         // Buat elemen <p> untuk setiap paragraf dan tambahkan ke modal
         paragraphs.forEach(paragraphText => {
             const p = document.createElement('p');
             p.textContent = paragraphText.trim(); // Trim untuk menghilangkan spasi berlebih
             modalDescription.appendChild(p);
+            console.log("Paragraf ditambahkan ke modal:", p); // Tambahan debugging
         });
 
         modalAddToCartButton.dataset.id = product.dataset.id;
@@ -891,6 +899,7 @@
         modalAddToCartButton.dataset.price = product.dataset.price; // Gunakan harga setelah diskon untuk tombol modal
         modalAddToCartButton.dataset.image = product.dataset.image;
         productModal.style.display = "block";
+        console.log("Modal ditampilkan."); // Tambahan debugging
     }
 
     // Fungsi untuk menyembunyikan detail produk (tetap ada)
